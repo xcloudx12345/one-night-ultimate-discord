@@ -4,7 +4,7 @@ import { Command } from '../types/Command';
 
 const command: Command = {
   names: ['rules', 'r'],
-  description: 'Send a DM with a link to the official rules.',
+  description: 'Gửi luật chơi cho bạn qua tin nhắn riêng.',
   params: [],
   execute,
   adminOnly: false,
@@ -12,10 +12,10 @@ const command: Command = {
 
 async function execute(msg: Message): Promise<void> {
   try {
-    await msg.author.send(`You can read the rules here: ${RULES_URL}`);
+    await msg.author.send(`Đọc luật ở đây: ${RULES_URL}`);
   } catch (error) {
     msg.reply(
-      `I cannot send you a DM with the rules because of your privacy settings. This is needed to be able to play the game.`
+      `Tôi không thể nhắn tin riêng do bạn đã cài đặt chặn tin nhắn. Cần biết luật mới chơi được game.`
     );
   }
 }

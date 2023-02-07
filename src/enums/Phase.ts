@@ -1,5 +1,5 @@
 export enum Phase {
-  night = 'night',
-  discussion = 'discussion',
-  ending = 'ending',
+  night = 'Đêm',
+  discussion = 'thảo luận',
+  ending = 'kết thúc',
 }

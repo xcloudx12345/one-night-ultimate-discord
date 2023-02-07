@@ -54,16 +54,16 @@ describe('GameState', function () {
       newPlayer('44'),
       newPlayer('55'),
     ];
-    gameState.playerRoles.doppelganger = toPlayerCollection([players[0]]);
-    gameState.playerRoles.werewolf = toPlayerCollection([
+    gameState.playerRoles.Kẻ_mạo_danh = toPlayerCollection([players[0]]);
+    gameState.playerRoles.Ma_sói = toPlayerCollection([
       players[1],
       players[2],
     ]);
-    gameState.playerRoles.mason = toPlayerCollection([players[3], players[4]]);
+    gameState.playerRoles.Thợ_hồ = toPlayerCollection([players[3], players[4]]);
 
     gameState.tableRoles = [new Seer(), new Villager(), new Troublemaker()];
 
-    expect(gameState.print(RoleName.seer)).to.equal(`Player roles:
+    expect(gameState.print(RoleName.Tiên_tri)).to.equal(`Player roles:
 
 doppelganger as seer: 11
 werewolf: 22, 33
@@ -76,12 +76,12 @@ Table roles: seer, villager, troublemaker`);
       const gameState = new GameState();
       const player1 = newPlayer();
       const player2 = newPlayer();
-      gameState.playerRoles.doppelganger = toPlayerCollection([
+      gameState.playerRoles.Kẻ_mạo_danh = toPlayerCollection([
         player1,
         player2,
       ]);
-      expect(gameState.getRoleName(player1)).to.be.eq(RoleName.doppelganger);
-      expect(gameState.getRoleName(player2)).to.be.eq(RoleName.doppelganger);
+      expect(gameState.getRoleName(player1)).to.be.eq(RoleName.Kẻ_mạo_danh);
+      expect(gameState.getRoleName(player2)).to.be.eq(RoleName.Kẻ_mạo_danh);
     });
     it('It should throw an error if the player does not have a role', function () {
       const gameState = new GameState();
@@ -97,16 +97,16 @@ Table roles: seer, villager, troublemaker`);
       const gameState = new GameState();
       const clonedGameState = gameState.copy();
       expect(clonedGameState.playerRoles).to.have.property(
-        RoleName.doppelganger
+        RoleName.Kẻ_mạo_danh
       );
 
       const players = Array.from({ length: 2 }, () => newPlayer());
-      gameState.playerRoles.doppelganger = toPlayerCollection(players);
+      gameState.playerRoles.Kẻ_mạo_danh = toPlayerCollection(players);
       expect(gameState.playerRoles)
-        .to.have.property(RoleName.doppelganger)
+        .to.have.property(RoleName.Kẻ_mạo_danh)
         .to.have.length(2);
       expect(clonedGameState.playerRoles)
-        .to.have.property(RoleName.doppelganger)
+        .to.have.property(RoleName.Kẻ_mạo_danh)
         .to.have.length(0);
     });
   });
@@ -116,8 +116,8 @@ Table roles: seer, villager, troublemaker`);
       const players = Array.from({ length: 3 }, () => newPlayer());
 
       const gameState = new GameState();
-      gameState.playerRoles.drunk = toPlayerCollection([players[0]]);
-      gameState.playerRoles.werewolf = toPlayerCollection([
+      gameState.playerRoles.Bợm_nhậu = toPlayerCollection([players[0]]);
+      gameState.playerRoles.Ma_sói = toPlayerCollection([
         players[1],
         players[2],
       ]);
@@ -127,12 +127,12 @@ Table roles: seer, villager, troublemaker`);
         new Villager(),
       ];
 
-      expect(gameState.playerRoles.drunk).to.have.length(1);
-      expect(gameState.playerRoles.doppelganger).to.have.length(0);
+      expect(gameState.playerRoles.Bợm_nhậu).to.have.length(1);
+      expect(gameState.playerRoles.Kẻ_mạo_danh).to.have.length(0);
 
       gameState.switchTableCard(players[0], 0);
-      expect(gameState.playerRoles.drunk).to.have.length(0);
-      expect(gameState.playerRoles.doppelganger).to.have.length(1);
+      expect(gameState.playerRoles.Bợm_nhậu).to.have.length(0);
+      expect(gameState.playerRoles.Kẻ_mạo_danh).to.have.length(1);
 
       expect(gameState.tableRoles).to.be.eql([
         new Drunk(),
@@ -145,19 +145,19 @@ Table roles: seer, villager, troublemaker`);
       const players = Array.from({ length: 3 }, () => newPlayer());
 
       const gameState = new GameState();
-      gameState.playerRoles.drunk = toPlayerCollection([
+      gameState.playerRoles.Bợm_nhậu = toPlayerCollection([
         players[0],
         players[1],
       ]);
-      gameState.playerRoles.robber = toPlayerCollection([players[2]]);
+      gameState.playerRoles.Đạo_tặc = toPlayerCollection([players[2]]);
       gameState.tableRoles = [new Seer(), new Werewolf(), new Werewolf()];
 
-      expect(gameState.playerRoles.drunk).to.have.length(2);
-      expect(gameState.playerRoles.robber).to.have.length(1);
+      expect(gameState.playerRoles.Bợm_nhậu).to.have.length(2);
+      expect(gameState.playerRoles.Đạo_tặc).to.have.length(1);
 
       gameState.switchTableCard(players[1], 1);
-      checkRole(gameState, RoleName.drunk, [players[0]]);
-      expect(gameState.playerRoles.werewolf).to.have.length(1);
+      checkRole(gameState, RoleName.Bợm_nhậu, [players[0]]);
+      expect(gameState.playerRoles.Ma_sói).to.have.length(1);
       expect(gameState.tableRoles).to.be.eql([
         new Seer(),
         new Drunk(),
@@ -171,23 +171,23 @@ Table roles: seer, villager, troublemaker`);
       );
 
       const gameState = new GameState();
-      gameState.playerRoles.robber = toPlayerCollection([players[0]]);
-      gameState.playerRoles.werewolf = toPlayerCollection([players[1]]);
-      gameState.playerRoles.seer = toPlayerCollection([players[2]]);
-      gameState.playerRoles.troublemaker = toPlayerCollection([players[3]]);
+      gameState.playerRoles.Đạo_tặc = toPlayerCollection([players[0]]);
+      gameState.playerRoles.Ma_sói = toPlayerCollection([players[1]]);
+      gameState.playerRoles.Tiên_tri = toPlayerCollection([players[2]]);
+      gameState.playerRoles.Kẻ_phá_hoại = toPlayerCollection([players[3]]);
 
       gameState.switchPlayerRoles(players[0], players[2]);
-      checkRole(gameState, RoleName.robber, [players[2]]);
-      checkRole(gameState, RoleName.werewolf, [players[1]]);
-      checkRole(gameState, RoleName.seer, [players[0]]);
-      checkRole(gameState, RoleName.troublemaker, [players[3]]);
+      checkRole(gameState, RoleName.Đạo_tặc, [players[2]]);
+      checkRole(gameState, RoleName.Ma_sói, [players[1]]);
+      checkRole(gameState, RoleName.Tiên_tri, [players[0]]);
+      checkRole(gameState, RoleName.Kẻ_phá_hoại, [players[3]]);
 
       gameState.switchPlayerRoles(players[2], players[1]);
 
-      checkRole(gameState, RoleName.robber, [players[1]]);
-      checkRole(gameState, RoleName.werewolf, [players[2]]);
-      checkRole(gameState, RoleName.seer, [players[0]]);
-      checkRole(gameState, RoleName.troublemaker, [players[3]]);
+      checkRole(gameState, RoleName.Đạo_tặc, [players[1]]);
+      checkRole(gameState, RoleName.Ma_sói, [players[2]]);
+      checkRole(gameState, RoleName.Tiên_tri, [players[0]]);
+      checkRole(gameState, RoleName.Kẻ_phá_hoại, [players[3]]);
     });
   });
 });

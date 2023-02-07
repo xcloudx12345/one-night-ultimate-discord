@@ -3,7 +3,7 @@ import { Command } from '../types/Command';
 
 const command: Command = {
   names: ['ping'],
-  description: 'Send a ping to the bot to see how responsive it is.',
+  description: 'Kiểm tra tốc độ bản hồi của bot.',
   params: [],
   execute,
   adminOnly: false,

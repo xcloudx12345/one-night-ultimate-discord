@@ -41,14 +41,14 @@ describe('GameLogic', function () {
     const players = Array.from({ length: 6 }, () => newPlayer());
     const gameState = new GameState();
 
-    gameState.playerRoles.doppelganger = toPlayerCollection([players[0]]);
-    gameState.playerRoles.werewolf = toPlayerCollection([
+    gameState.playerRoles.Kẻ_mạo_danh = toPlayerCollection([players[0]]);
+    gameState.playerRoles.Ma_sói = toPlayerCollection([
       players[1],
       players[2],
     ]);
-    gameState.playerRoles.villager = toPlayerCollection([players[3]]);
-    gameState.playerRoles.tanner = toPlayerCollection([players[4]]);
-    gameState.playerRoles.hunter = toPlayerCollection([players[5]]);
+    gameState.playerRoles.Dân_làng = toPlayerCollection([players[3]]);
+    gameState.playerRoles.Bợm_nhậu = toPlayerCollection([players[4]]);
+    gameState.playerRoles.Thợ_săn = toPlayerCollection([players[5]]);
 
     it('Nobody dies when everyone has one vote.', function () {
       const chosenPlayers = [
@@ -107,7 +107,7 @@ describe('GameLogic', function () {
         { chosenBy: players[5], target: players[1] },
       ];
 
-      expect(gameState.getRoleName(players[5])).to.be.eq(RoleName.hunter);
+      expect(gameState.getRoleName(players[5])).to.be.eq(RoleName.Thợ_săn);
 
       const winState = getWinner(chosenPlayers, gameState);
       expect(winState.playersWhoDie).to.include(players[5]);
@@ -129,8 +129,8 @@ describe('GameLogic', function () {
         { chosenBy: players[5], target: players[4] },
       ];
 
-      expect(gameState.getRoleName(players[4])).to.be.eq(RoleName.tanner);
-      expect(gameState.getRoleName(players[5])).to.be.eq(RoleName.hunter);
+      expect(gameState.getRoleName(players[4])).to.be.eq(RoleName.Kẻ_chán_đời);
+      expect(gameState.getRoleName(players[5])).to.be.eq(RoleName.Thợ_săn);
 
       const winState = getWinner(chosenPlayers, gameState);
       expect(winState.playersWhoDie).to.include(players[5]);

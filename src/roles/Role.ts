@@ -9,18 +9,18 @@ export abstract class Role {
 }
 export function isMimicRole(roleName: RoleName): boolean {
   return [
-    RoleName.werewolf,
-    RoleName.minion,
-    RoleName.mason,
-    RoleName.insomniac,
+    RoleName.Ma_sói,
+    RoleName.Kẻ_phản_bội,
+    RoleName.Thợ_hồ,
+    RoleName.Cú_đêm,
   ].includes(roleName);
 }
 
 export function isInstantRole(roleName: RoleName): boolean {
   return [
-    RoleName.seer,
-    RoleName.robber,
-    RoleName.troublemaker,
-    RoleName.drunk,
+    RoleName.Tiên_tri,
+    RoleName.Đạo_tặc,
+    RoleName.Kẻ_phá_hoại,
+    RoleName.Bợm_nhậu,
   ].includes(roleName);
 }

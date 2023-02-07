@@ -6,49 +6,49 @@ import { Player } from '../Player';
 import { Role } from './Role';
 
 export class Werewolf extends Role {
-  readonly name = RoleName.werewolf;
+  readonly name = RoleName.Ma_sói;
 
   async doTurn(game: Game, player: Player): Promise<void> {
     const { tableRoles, playerRoles } = game.gameState;
-    if (playerRoles.werewolf.size !== 1) {
-      const werewolves = playerRoles.werewolf;
+    if (playerRoles.Ma_sói.size !== 1) {
+      const werewolves = playerRoles.Ma_sói;
       // Assert that there are werewolves
       if (werewolves === undefined) {
-        throw new Error('Invalid gamestate, no werewolves in the game.');
+        throw new Error('Trạng thái trò chơi không hợp lệ, không có ma sói trong trò chơi.');
       }
       const otherWerewolves = werewolves.filter(
         (otherPlayer) => otherPlayer.id !== player.id
       );
       const otherNames = otherWerewolves
         .map((otherWerewolf) => otherWerewolf.name)
-        .join(' and ');
+        .join(' và ');
 
       const werewolfSentence =
-        otherWerewolves.size === 1 ? 'werewolf is' : 'werewolves are';
-      const prompt = `You wake up and see that the other ${werewolfSentence} ${otherNames}.`;
+        otherWerewolves.size === 1 ? 'ma sói là' : 'ma sói là';
+      const prompt = `Bạn thức dậy và thấy đồng loại của mình là ${werewolfSentence} ${otherNames}.`;
       await AcknowledgeMessage(player, prompt);
 
-      player.send("You look in each other's eyes and go back to sleep.");
+      player.send("Các bạn nhìn nhau nở một nụ cười gian xảo rồi ngủ tiếp.");
     } else {
-      player.send('You wake and you see that you are the only werewolf.');
+      player.send('Bạn thức dậy biết mình là ma sói duy nhất.');
 
       const chosenCard = (
         await ChooseTableCard(
           game.gameState,
           player,
           1,
-          'You can take a look at a card on the table'
+          'Bạn có thể chọn một lá bài trên bàn để xem.'
         )
       )[0];
       const emoji = Object.keys(chosenCard)[0];
       const roleName = tableRoles[chosenCard[emoji]].name;
       await AcknowledgeMessage(
         player,
-        `You see that the card ${emoji} has the role ${roleName}`
+        `Lá ${emoji} có role là ${roleName}`
       );
-      await player.send('You go back to sleep.');
+      await player.send('Bạn đi ngủ tiếp.');
     }
-    Log.info('Werewolf turn played.');
+    Log.info('Lượt của ma sói đã xong.');
   }
 
   clone(): Role {

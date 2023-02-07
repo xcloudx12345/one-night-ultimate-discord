@@ -19,9 +19,9 @@ enum Optional {
 
 const command: Command = {
   names: ['start'],
-  description: `Start a new game. Supply the _'quick'_ option to reuse previous settings.
-Supply the _'silentnight'_  option to mute the ambient night noises.
-Supply the _'silent'_ option to mute all sound effects.`,
+  description: `Bắt đầu chơi. Dùng 'start quick' để sử dụng cấu hình trước đó.
+  Dùng 'start silentnight' để tắt âm thanh đêm.
+  Dùng 'start silent' để tắt tất cả hiệu ứng âm thanh.`,
   params: [
     {
       optional: true,
@@ -51,47 +51,47 @@ async function execute(msg: Message, args: string[]): Promise<void> {
 
   const voiceChannel = msg.member?.voice.channel;
   if (!voiceChannel) {
-    textChannel.send('Please join a voice channel.');
+    textChannel.send('Vui lòng vào kênh voice.');
     return;
   }
 
   const members = voiceChannel?.members;
 
   if (!members) {
-    textChannel.send(`Empty voice channel`);
+    textChannel.send(`Kênh voice trống`);
     return;
   }
   const potentialPlayers = members.filter((m) => !m.user.bot).array();
   let players: GuildMember[];
   try {
     const playerTags = potentialPlayers.map((p) => `<@${p.id}>`).join(', ');
-    const text = `${playerTags}\nClick on ✅ to join the game.`;
+    const text = `${playerTags}\nBấm vào ✅ để tham gia.`;
     players = (await getPlayerList(textChannel, potentialPlayers, text)).map(
       ({ id }) => {
         const member = members.get(id);
         if (!member) {
-          throw new Error('A playing player left the voice channel.');
+          throw new Error('Một người chơi đã thoát khỏi kênh voice.');
         }
         return member;
       }
     );
   } catch (error) {
-    textChannel.send(error.message);
+    textChannel.send((error as Error).message);
     return;
   }
 
   const author = msg.author;
   const amountToPick =
-    players.length - MAX_ROLES_COUNT[RoleName.werewolf] + CARDS_ON_TABLE;
+    players.length - MAX_ROLES_COUNT[RoleName.Ma_sói] + CARDS_ON_TABLE;
   const werewolves = Array.from(
-    { length: MAX_ROLES_COUNT[RoleName.werewolf] },
-    () => RoleName.werewolf
+    { length: MAX_ROLES_COUNT[RoleName.Ma_sói] },
+    () => RoleName.Ma_sói
   );
 
   try {
     if (players.length < MINIMUM_PLAYERS || players.length > MAXIMUM_PLAYERS) {
       throw new Error(
-        `Not enough players. Game must be played with ${MINIMUM_PLAYERS} to ${MAXIMUM_PLAYERS} players.`
+        `Không đủ người chơi. Game cần từ ${MINIMUM_PLAYERS} đến ${MAXIMUM_PLAYERS} người.`
       );
     }
     if (quickStart) {
@@ -117,8 +117,8 @@ async function execute(msg: Message, args: string[]): Promise<void> {
       );
     }
   } catch (error) {
-    Log.error(error.message);
-    await textChannel.send(error.message);
+    Log.error((error as Error).message);
+    await textChannel.send((error as Error).message);
   }
 }
 export = command;

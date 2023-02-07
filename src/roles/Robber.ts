@@ -11,11 +11,11 @@ import { Player } from '../Player';
 import { Role } from './Role';
 
 export class Robber extends Role {
-  readonly name = RoleName.robber;
+  readonly name = RoleName.Đạo_tặc;
 
   async doTurn(game: Game, player: Player): Promise<void> {
     const text =
-      'You wake up. You can now steal the role of another player. Do you want to do this?';
+      'Bạn vừa thức dậy. Bây giờ bạn có thể trộm vai trò của người khác. Bạn có làm luôn không?';
     const stealRole = await ChooseToDoAction(player, text);
     if (stealRole) {
       const chosenPlayer = (
@@ -23,19 +23,19 @@ export class Robber extends Role {
           game.players,
           player,
           ChoosePlayerType.rob,
-          'Choose a player to steal their role.'
+          'Chọn một người chơi để đánh cắp vai trò của họ.'
         )
       )[0];
       const roleName = game.gameState.getRoleName(chosenPlayer);
       game.gameState.switchPlayerRoles(player, chosenPlayer);
       await AcknowledgeMessage(
         player,
-        `You see that ${chosenPlayer.name} has the role ${roleName}, which you now take`
+        `Bạn thấy ${chosenPlayer.name} có vai trò là ${roleName}, và bà bạn đã trộm nó`
       );
-      await player.send('You go back to sleep.');
+      await player.send('Đi ngủ thôi.');
     } else {
-      await player.send("You don't steal a role and go back to sleep.");
+      await player.send("Bạn không trộm vai trò của ai cả và ngủ tiếp.");
     }
-    Log.info('Robber turn played.');
+    Log.info('Đạo tặc đã xong lượt.');
   }
 }

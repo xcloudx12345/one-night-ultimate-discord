@@ -12,16 +12,16 @@ import { Player } from '../Player';
 import { Role } from './Role';
 
 export class Seer extends Role {
-  readonly name = RoleName.seer;
+  readonly name = RoleName.Tiên_tri;
 
   async doTurn(game: Game, player: Player): Promise<void> {
     const gameState = game.gameState;
     const lookAtPlayerCards = await ChoosePlayerOrTable(
       gameState,
       player,
-      `Do you either:
-- 1️⃣: Look at another player's card
-- 2️⃣: Look at two cards in the middle?`
+      `Bạn được chọn giữa:
+- 1️⃣: Xem bài của người khác
+- 2️⃣: Xem 2 lá bài trong số các lá thừa không có người chọn.`
     );
     if (lookAtPlayerCards) {
       const chosenPlayer = (
@@ -29,20 +29,20 @@ export class Seer extends Role {
           game.players,
           player,
           ChoosePlayerType.view,
-          'Choose a player to see their role.'
+          'Chọn người để xem vai trò.'
         )
       )[0];
       const roleName = game.gameState.getRoleName(chosenPlayer);
       await AcknowledgeMessage(
         player,
-        `You see that ${chosenPlayer.name} has the role ${roleName}`
+        `Bạn nhìn thấy ${chosenPlayer.name} có vai trò là ${roleName}`
       );
     } else {
       const chosenCards = await ChooseTableCard(
         gameState,
         player,
         2,
-        'You can take a look at two cards on the table.'
+        'Bạn có thể chọn 2 lá bài trên bàn để xem.'
       );
       let selectedRoles = '';
       for (const chosenCard of chosenCards) {
@@ -54,12 +54,12 @@ export class Seer extends Role {
 
       await AcknowledgeMessage(
         player,
-        `You view the following cards:${selectedRoles}`
+        `Bạn xem được lá: ${selectedRoles}`
       );
     }
-    await player.send('You go back to sleep.');
+    await player.send('Bạn hãy ngủ tiếp.');
 
-    Log.info('Seer turn played.');
+    Log.info('Tiên tri đã xong lượt.');
   }
 
   clone(): Role {

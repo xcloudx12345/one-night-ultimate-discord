@@ -11,29 +11,29 @@ import { Player } from '../Player';
 import { Role } from './Role';
 
 export class Troublemaker extends Role {
-  readonly name = RoleName.troublemaker;
+  readonly name = RoleName.Kẻ_phá_hoại;
 
   async doTurn(game: Game, player: Player): Promise<void> {
     const text =
-      'You wake up. You can now switch the roles of two players. Do you want to do this?';
+      'Hãy thức dậy đi. Bạn có thể hoán đổi vai trò của 2 người chơi với nhau. Bạn có muốn làm vậy không?';
     const switchRoles = await ChooseToDoAction(player, text);
     if (switchRoles) {
       const chosenPlayers = await ChoosePlayer(
         game.players,
         player,
         ChoosePlayerType.switch,
-        'Chose two players to switch their roles'
+        'Chọn 2 người chơi để đổi vai trò của họ'
       );
       game.gameState.switchPlayerRoles(chosenPlayers[0], chosenPlayers[1]);
       await AcknowledgeMessage(
         player,
-        `You switch the roles of ${chosenPlayers[0].name} and ${chosenPlayers[1].name}`
+        `Bạn đã đổi vai trò của ${chosenPlayers[0].name} và ${chosenPlayers[1].name}`
       );
-      await player.send('You go back to sleep.');
+      await player.send('Bạn đi ngủ tiếp.');
     } else {
-      await player.send("You don't switch roles and go back to sleep.");
+      await player.send("Bạn không đổi vai trò của ai cả và đi ngủ tiếp.");
     }
-    Log.info('Troublemaker turn played.');
+    Log.info('Kẻ gây rối đã xong lượt.');
   }
 
   clone(): Role {

@@ -33,19 +33,20 @@ function newGame(size: number, players: Player[] = []): Game {
   } else {
     users = players.map((p) => p.user);
   }
-  const roles = [
-    RoleName.werewolf,
-    RoleName.werewolf,
-    RoleName.mason,
-    RoleName.mason,
-    RoleName.robber,
-    RoleName.seer,
-    RoleName.troublemaker,
-    RoleName.insomniac,
-    RoleName.tanner,
-    RoleName.hunter,
-    RoleName.villager,
+const roles = [
+    RoleName.Ma_sói,
+    RoleName.Ma_sói,
+    RoleName.Thợ_hồ,
+    RoleName.Thợ_hồ,
+    RoleName.Đạo_tặc,
+    RoleName.Tiên_tri,
+    RoleName.Kẻ_phá_hoại,
+    RoleName.Cú_đêm,
+    RoleName.Kẻ_chán_đời,
+    RoleName.Thợ_săn,
+    RoleName.Dân_làng,
   ].slice(0, size);
+
 
   return new Game(
     users.slice(0, size),
@@ -107,19 +108,19 @@ describe('Game', function () {
       }
       let game = newGame(players.length, players);
 
-      game.gameState.playerRoles.doppelganger = toPlayerCollection(
+      game.gameState.playerRoles.Kẻ_mạo_danh = toPlayerCollection(
         players.slice(0, 2)
       );
       await testGame(game);
 
       game = newGame(players.length, players);
-      game.gameState.playerRoles.doppelganger = toPlayerCollection([
+      game.gameState.playerRoles.Kẻ_mạo_danh = toPlayerCollection([
         players[0],
       ]);
-      game.gameState.playerRoles.werewolf = toPlayerCollection(
+      game.gameState.playerRoles.Ma_sói = toPlayerCollection(
         players.slice(1, 3)
       );
-      game.gameState.playerRoles.robber = toPlayerCollection(
+      game.gameState.playerRoles.Đạo_tặc = toPlayerCollection(
         players.slice(5, 2)
       );
 
@@ -132,12 +133,12 @@ describe('Game', function () {
 
       const game = newGame(players.length, players);
 
-      game.gameState.playerRoles.doppelganger = toPlayerCollection([
+      game.gameState.playerRoles.Kẻ_mạo_danh = toPlayerCollection([
         players[0],
       ]);
       game.gameState.playerRoles[roleName] = toPlayerCollection([players[1]]);
       expect(game.gameState.playerRoles)
-        .to.have.property(RoleName.doppelganger)
+        .to.have.property(RoleName.Kẻ_mạo_danh)
         .to.have.length(1);
       expect(game.gameState.playerRoles)
         .to.have.property(roleName)
@@ -145,7 +146,7 @@ describe('Game', function () {
 
       game.gameState.moveDoppelGanger(roleName);
       expect(game.gameState.playerRoles)
-        .to.have.property(RoleName.doppelganger)
+        .to.have.property(RoleName.Kẻ_mạo_danh)
         .to.have.length(0);
       expect(game.gameState.playerRoles)
         .to.have.property(roleName)
@@ -155,19 +156,19 @@ describe('Game', function () {
     }
 
     it('Doppelganger takes on werewolf executes it later', function () {
-      testChange(RoleName.werewolf);
+      testChange(RoleName.Ma_sói);
     });
 
     it('Doppelganger takes on minion executes it later', function () {
-      testChange(RoleName.minion);
+      testChange(RoleName.Kẻ_phản_bội);
     });
 
     it('Doppelganger takes on mason executes it later', function () {
-      testChange(RoleName.mason);
+      testChange(RoleName.Thợ_hồ);
     });
 
     it('Doppelganger takes on insomniac executes it later', function () {
-      testChange(RoleName.insomniac);
+      testChange(RoleName.Cú_đêm);
     });
   });
 });

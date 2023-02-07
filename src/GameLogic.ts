@@ -28,15 +28,15 @@ import { Werewolf } from './roles/Werewolf';
 import { Time } from './types/Time';
 
 export const callOrder = [
-  RoleName.doppelganger,
-  RoleName.werewolf,
-  RoleName.minion,
-  RoleName.mason,
-  RoleName.seer,
-  RoleName.robber,
-  RoleName.troublemaker,
-  RoleName.drunk,
-  RoleName.insomniac,
+  RoleName.Kẻ_mạo_danh,
+  RoleName.Ma_sói,
+  RoleName.Kẻ_phản_bội,
+  RoleName.Thợ_hồ,
+  RoleName.Tiên_tri,
+  RoleName.Đạo_tặc,
+  RoleName.Kẻ_phá_hoại,
+  RoleName.Bợm_nhậu,
+  RoleName.Cú_đêm,
 ];
 
 // Source: https://stackoverflow.com/a/2450976/2174255
@@ -143,9 +143,9 @@ export async function playAllTurns(game: Game): Promise<void> {
       if (
         game.newDoppelgangerRole === roleName &&
         isMimicRole(roleName) &&
-        startGameState.playerRoles.doppelganger.size > 0
+        startGameState.playerRoles.Kẻ_mạo_danh.size > 0
       ) {
-        const doppelGangers = startGameState.playerRoles.doppelganger.map(
+        const doppelGangers = startGameState.playerRoles.Kẻ_mạo_danh.map(
           (dplgnr) => role.doTurn(game, dplgnr)
         );
         roles = roles.concat(doppelGangers);
@@ -155,8 +155,7 @@ export async function playAllTurns(game: Game): Promise<void> {
     } else if (game.chosenRoles.includes(roleName)) {
       const fakeTime = FAKE_USER_TIME + Math.floor(Math.random() * 5000);
       Log.info(
-        `Faking ${roleName} because it's a table role for ${
-          fakeTime / 1000
+        `Faking ${roleName} because it's a table role for ${fakeTime / 1000
         } seconds.`
       );
       await new Promise((resolve) => setTimeout(resolve, fakeTime));
@@ -201,7 +200,7 @@ export function getWinner(
   // If no player receives more than one vote, no one dies.
   if (highestVoteCount === 1) {
     // If a werewolf is among the players, team werewolf wins
-    if (gameState.playerRoles.werewolf) {
+    if (gameState.playerRoles.Ma_sói) {
       winner = Team.werewolves;
     }
   } else {
@@ -211,19 +210,19 @@ export function getWinner(
     playersWhoDie = playersWhoDieWithCount.map(({ player }) => player);
 
     let hunterIds: string[];
-    if (gameState.playerRoles.hunter) {
-      hunterIds = gameState.playerRoles.hunter.map(({ id }) => id);
+    if (gameState.playerRoles.Thợ_săn) {
+      hunterIds = gameState.playerRoles.Thợ_săn.map(({ id }) => id);
     }
     dyingHunters = playersWhoDie.filter(({ id }) => hunterIds.includes(id));
 
     let tannerIds: string[];
-    if (gameState.playerRoles.tanner) {
-      tannerIds = gameState.playerRoles.tanner.map(({ id }) => id);
+    if (gameState.playerRoles.Kẻ_chán_đời) {
+      tannerIds = gameState.playerRoles.Kẻ_chán_đời.map(({ id }) => id);
     }
 
     let werewolfIds: string[];
-    if (gameState.playerRoles.werewolf) {
-      werewolfIds = gameState.playerRoles.werewolf.map(({ id }) => id);
+    if (gameState.playerRoles.Ma_sói) {
+      werewolfIds = gameState.playerRoles.Ma_sói.map(({ id }) => id);
     }
 
     // If a hunter dies, its target also dies
@@ -240,7 +239,7 @@ export function getWinner(
       const hunterKillListRoles = hunterKillList.map((p) =>
         gameState.getRoleName(p)
       );
-      if (hunterKillListRoles.includes(RoleName.werewolf)) {
+      if (hunterKillListRoles.includes(RoleName.Ma_sói)) {
         winner = Team.villagers;
       }
       playersWhoDie = playersWhoDie.concat(hunterKillList);
@@ -267,29 +266,29 @@ export function getWinner(
 
 export function getRoleByName(roleName: RoleName): Role {
   switch (roleName) {
-    case RoleName.doppelganger:
+    case RoleName.Kẻ_mạo_danh:
       return new Doppelganger();
-    case RoleName.drunk:
+    case RoleName.Bợm_nhậu:
       return new Drunk();
-    case RoleName.hunter:
+    case RoleName.Thợ_săn:
       return new Hunter();
-    case RoleName.insomniac:
+    case RoleName.Cú_đêm:
       return new Insomniac();
-    case RoleName.mason:
+    case RoleName.Thợ_hồ:
       return new Mason();
-    case RoleName.minion:
+    case RoleName.Kẻ_phản_bội:
       return new Minion();
-    case RoleName.robber:
+    case RoleName.Đạo_tặc:
       return new Robber();
-    case RoleName.seer:
+    case RoleName.Tiên_tri:
       return new Seer();
-    case RoleName.tanner:
+    case RoleName.Kẻ_chán_đời:
       return new Tanner();
-    case RoleName.troublemaker:
+    case RoleName.Kẻ_phá_hoại:
       return new Troublemaker();
-    case RoleName.villager:
+    case RoleName.Dân_làng:
       return new Villager();
-    case RoleName.werewolf:
+    case RoleName.Ma_sói:
       return new Werewolf();
     default:
       throw new Error('invalid gamestate');

@@ -6,26 +6,26 @@ import { Player } from '../Player';
 import { Role } from './Role';
 
 export class Minion extends Role {
-  readonly name = RoleName.minion;
+  readonly name = RoleName.Kẻ_phản_bội;
 
   async doTurn(game: Game, player: Player): Promise<void> {
     const gameState = game.gameState;
-    if (gameState.playerRoles.werewolf.size === 0) {
-      const prompt = 'You wake up and see no werewolves among the players.';
+    if (gameState.playerRoles.Ma_sói.size === 0) {
+      const prompt = 'Bạn thức dậy và không thấy ma sói nào trong số những người chơi.';
       await AcknowledgeMessage(player, prompt);
     } else {
-      const names = gameState.playerRoles.werewolf
+      const names = gameState.playerRoles.Ma_sói
         .map((otherWerewolf) => otherWerewolf.name)
-        .join(' and ');
+        .join(' và ');
       const werewolfSentence =
-        gameState.playerRoles.werewolf.size === 1
-          ? 'player is a werewolf'
-          : 'players are werewolves';
-      const prompt = `You wake up and see that the following ${werewolfSentence}: ${names}`;
+        gameState.playerRoles.Ma_sói.size === 1
+          ? 'là ma sói'
+          : 'là ma sói';
+      const prompt = `Bạn thức dậy và thấy rằng ${werewolfSentence}: ${names}`;
       await AcknowledgeMessage(player, prompt);
     }
-    await player.send('You go back to sleep.');
+    await player.send('Đi ngủ thôi.');
 
-    Log.info('Minion turn played.');
+    Log.info('kẻ phản bội đã xong lượt.');
   }
 }

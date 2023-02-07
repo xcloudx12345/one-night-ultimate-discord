@@ -5,7 +5,7 @@ import { Command } from '../types/Command';
 
 const command: Command = {
   names: ['help', 'h'],
-  description: 'Display this help information',
+  description: 'Thông tin trợ giúp',
   params: [],
   execute,
   adminOnly: false,
@@ -41,7 +41,7 @@ async function execute(msg: Message): Promise<void> {
   });
 
   embed.setFooter(
-    'Made with ❤️ by Sebastiaan Jansen / DrSkunk',
+    'Made with ❤️',
     'https://i.imgur.com/RPKkHMf.png'
   );
   const textChannel = msg.channel as TextChannel;

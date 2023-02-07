@@ -9,26 +9,26 @@ type PlayerRoles = { [key in RoleName]: Collection<string, Player> };
 export class GameState {
   playerRoles: PlayerRoles;
   tableRoles: Role[];
-
+  
   constructor(
-    playerRoles: PlayerRoles = {
-      [RoleName.doppelganger]: new Collection(),
-      [RoleName.werewolf]: new Collection(),
-      [RoleName.minion]: new Collection(),
-      [RoleName.mason]: new Collection(),
-      [RoleName.seer]: new Collection(),
-      [RoleName.robber]: new Collection(),
-      [RoleName.troublemaker]: new Collection(),
-      [RoleName.drunk]: new Collection(),
-      [RoleName.insomniac]: new Collection(),
-      [RoleName.villager]: new Collection(),
-      [RoleName.tanner]: new Collection(),
-      [RoleName.hunter]: new Collection(),
-    },
-    tableRoles: Role[] = []
+  playerRoles: PlayerRoles = {
+  [RoleName.Kẻ_mạo_danh]: new Collection(),
+  [RoleName.Ma_sói]: new Collection(),
+  [RoleName.Kẻ_phản_bội]: new Collection(),
+  [RoleName.Thợ_hồ]: new Collection(),
+  [RoleName.Tiên_tri]: new Collection(),
+  [RoleName.Đạo_tặc]: new Collection(),
+  [RoleName.Kẻ_phá_hoại]: new Collection(),
+  [RoleName.Bợm_nhậu]: new Collection(),
+  [RoleName.Cú_đêm]: new Collection(),
+  [RoleName.Dân_làng]: new Collection(),
+  [RoleName.Kẻ_chán_đời]: new Collection(),
+  [RoleName.Thợ_săn]: new Collection(),
+  },
+  tableRoles: Role[] = []
   ) {
-    this.playerRoles = playerRoles;
-    this.tableRoles = tableRoles;
+  this.playerRoles = playerRoles;
+  this.tableRoles = tableRoles;
   }
 
   public print(newDoppelgangerRole?: RoleName | null): string {
@@ -37,7 +37,7 @@ export class GameState {
       const players = this.playerRoles[roleName];
       if (players.size) {
         let newDoppelgangerRolePrint = '';
-        if (roleName === RoleName.doppelganger && newDoppelgangerRole) {
+        if (roleName === RoleName.Kẻ_mạo_danh && newDoppelgangerRole) {
           newDoppelgangerRolePrint = ` as ${newDoppelgangerRole}`;
         }
         const playerTags = players.map(({ name: tag }) => tag).join(', ');
@@ -79,7 +79,7 @@ export class GameState {
     // move Drunk to table
     this.tableRoles[tableCardIndex] = newTableCard;
     // Remove player from drunk rol
-    this.playerRoles.drunk = this.playerRoles.drunk.filter(
+    this.playerRoles.Bợm_nhậu = this.playerRoles.Bợm_nhậu.filter(
       (p) => p.id !== player.id
     );
     // Add player to new role
@@ -102,8 +102,8 @@ export class GameState {
   }
 
   public moveDoppelGanger(name: RoleName): void {
-    const doppelGangerPlayer = this.playerRoles.doppelganger.array()[0];
+    const doppelGangerPlayer = this.playerRoles.Kẻ_mạo_danh.array()[0];
     this.playerRoles[name].set(doppelGangerPlayer.id, doppelGangerPlayer);
-    this.playerRoles.doppelganger.clear();
+    this.playerRoles.Kẻ_mạo_danh.clear();
   }
 }

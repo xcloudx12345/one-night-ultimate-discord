@@ -23,20 +23,20 @@ export async function ChooseRoles(
   amountToPick: number
 ): Promise<RoleName[]> {
   const specialRoles = {
-    [ReactionChoice['0️⃣']]: RoleName.doppelganger,
-    [ReactionChoice['1️⃣']]: RoleName.drunk,
-    [ReactionChoice['2️⃣']]: RoleName.hunter,
-    [ReactionChoice['3️⃣']]: RoleName.insomniac,
-    [ReactionChoice['4️⃣']]: RoleName.mason,
-    [ReactionChoice['5️⃣']]: RoleName.mason,
-    [ReactionChoice['6️⃣']]: RoleName.minion,
-    [ReactionChoice['7️⃣']]: RoleName.robber,
-    [ReactionChoice['8️⃣']]: RoleName.seer,
-    [ReactionChoice['9️⃣']]: RoleName.tanner,
-    [ReactionChoice['🔟']]: RoleName.troublemaker,
-    [ReactionChoice['🇦']]: RoleName.villager,
-    [ReactionChoice['🇧']]: RoleName.villager,
-    [ReactionChoice['🇨']]: RoleName.villager,
+    [ReactionChoice['0️⃣']]: RoleName.Kẻ_mạo_danh,
+    [ReactionChoice['1️⃣']]: RoleName.Bợm_nhậu,
+    [ReactionChoice['2️⃣']]: RoleName.Thợ_săn,
+    [ReactionChoice['3️⃣']]: RoleName.Cú_đêm,
+    [ReactionChoice['4️⃣']]: RoleName.Thợ_hồ,
+    [ReactionChoice['5️⃣']]: RoleName.Thợ_hồ,
+    [ReactionChoice['6️⃣']]: RoleName.Kẻ_phản_bội,
+    [ReactionChoice['7️⃣']]: RoleName.Đạo_tặc,
+    [ReactionChoice['8️⃣']]: RoleName.Tiên_tri,
+    [ReactionChoice['9️⃣']]: RoleName.Kẻ_chán_đời,
+    [ReactionChoice['🔟']]: RoleName.Kẻ_phá_hoại,
+    [ReactionChoice['🇦']]: RoleName.Dân_làng,
+    [ReactionChoice['🇧']]: RoleName.Dân_làng,
+    [ReactionChoice['🇨']]: RoleName.Dân_làng,
   };
   const rolesText = Object.keys(specialRoles).reduce(
     (acc, emoji) =>
@@ -308,14 +308,15 @@ export async function getPlayerList(
   }
   let collected: Collection<string, MessageReaction>;
   try {
-    collected = await message.awaitReactions(filter, {
+    collected = (await message.awaitReactions(filter, {
       maxUsers: potentialPlayers.length,
       time: REACTION_WAIT_TIME,
       errors: ['time'],
-    });
+    })) as Collection<string, MessageReaction>;
   } catch (errorCollected) {
-    collected = errorCollected;
+    collected = errorCollected as Collection<string, MessageReaction>;
   }
+  
   Log.log('Collected a reaction');
   if (collected.array().length === 0) {
     return [];

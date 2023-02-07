@@ -6,32 +6,32 @@ import { Player } from '../Player';
 import { Role } from './Role';
 
 export class Mason extends Role {
-  readonly name = RoleName.mason;
+  readonly name = RoleName.Thợ_hồ;
 
   async doTurn(game: Game, player: Player): Promise<void> {
     const gameState = game.gameState;
-    if (gameState.playerRoles.mason.size !== 1) {
-      const masons = gameState.playerRoles.mason;
+    if (gameState.playerRoles.Thợ_hồ.size !== 1) {
+      const masons = gameState.playerRoles.Thợ_hồ;
       // Assert that there are masons
       if (masons === undefined) {
-        throw new Error('Invalid gamestate, no masons in the game.');
+        throw new Error('Trạng thái trò chơi không hợp lệ, không có thợ hồ trong trò chơi.');
       }
       const otherMasons = masons.filter(
         (otherPlayer) => otherPlayer.id !== player.id
       );
-      const masonSentence = otherMasons.size === 1 ? 'mason is' : 'masons are';
+      const masonSentence = otherMasons.size === 1 ? 'Thợ hồ là' : 'Thợ hồ là';
       const otherNames = otherMasons
         .map((otherMason) => otherMason.name)
-        .join(' and ');
+        .join(' và ');
 
-      const prompt = `You wake up and see that the other ${masonSentence} ${otherNames}.`;
+      const prompt = `Bạn thức dậy và nhìn thấy đồng nghiệp của mình là ${masonSentence} ${otherNames}.`;
       await AcknowledgeMessage(player, prompt);
-      await player.send("You look in each other's eyes and go back to sleep.");
+      await player.send("Các bạn nhìn vào đôi mắt nhau và đi ngủ tiếp.");
     } else {
-      const prompt = 'You wake and you see that you are the only mason.';
+      const prompt = 'Bạn thức dậy và thấy biết mình là thợ hồ.';
       await AcknowledgeMessage(player, prompt);
-      await player.send('You go back to sleep.');
+      await player.send('Bạn đi ngủ đi.');
     }
-    Log.info('Mason turn played.');
+    Log.info('Thợ hồ đã xong lượt.');
   }
 }

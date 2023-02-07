@@ -6,7 +6,7 @@ import { Player } from '../Player';
 import { Role } from './Role';
 
 export class Insomniac extends Role {
-  readonly name = RoleName.insomniac;
+  readonly name = RoleName.Cú_đêm;
 
   async doTurn(game: Game, player: Player): Promise<void> {
     const gameState = game.gameState;
@@ -14,9 +14,9 @@ export class Insomniac extends Role {
 
     await AcknowledgeMessage(
       player,
-      `You see that your current role is ${role}.`
+      `Bạn đã biết vai trò của mình là ${role}.`
     );
-    await player.send('You go back to sleep.');
-    Log.info('Insomniac turn played.');
+    await player.send('Đi ngủ đi.');
+    Log.info('Kẻ mất ngủ đã xong lượt.');
   }
 }

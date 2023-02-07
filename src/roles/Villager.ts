@@ -3,10 +3,10 @@ import { Log } from '../Log';
 import { Role } from './Role';
 
 export class Villager extends Role {
-  readonly name = RoleName.villager;
+  readonly name = RoleName.Dân_làng;
 
   doTurn(): void {
-    Log.info('Villager turn played.');
+    Log.info('Dân làng đã xong lượt.');
   }
 
   clone(): Role {

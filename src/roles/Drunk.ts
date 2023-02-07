@@ -6,27 +6,27 @@ import { Player } from '../Player';
 import { Role } from './Role';
 
 export class Drunk extends Role {
-  readonly name = RoleName.drunk;
+  readonly name = RoleName.Bợm_nhậu;
 
   async doTurn(game: Game, player: Player): Promise<void> {
     const gameState = game.gameState;
-    await player.send('You wake up.');
+    await player.send('Bợm Nhậu ơi, tỉnh táo thức dậy.');
     const tableCard = (
       await ChooseTableCard(
         gameState,
         player,
         1,
-        'You must take a card from the table.'
+        'Hãy đổi bài của mình với 1 lá ở giữa, nhớ là không được xem lá bài đã đổi!'
       )
     )[0];
     const tableCardIndex = Object.values(tableCard)[0];
     game.gameState.switchTableCard(player, tableCardIndex);
     await AcknowledgeMessage(
       player,
-      'You are now the role of the card you took from the table'
+      'Bây giờ vai trò của bạn chính là lá bài mà bạn vừa chọn'
     );
-    await player.send('You go back to sleep.');
+    await player.send('Đi ngủ tiếp đi.');
 
-    Log.info('Drunk turn played.');
+    Log.info('Gã say sỉn đã hết lượt.');
   }
 }

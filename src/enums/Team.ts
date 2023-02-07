@@ -1,5 +1,5 @@
 export enum Team {
-  villagers = 'villagers',
-  werewolves = 'werewolves',
-  tanner = 'tanner',
+  villagers = 'Dân làng',
+  werewolves = 'Ma sói',
+  tanner = 'Kẻ chán đời',
 }

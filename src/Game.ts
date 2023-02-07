@@ -73,7 +73,7 @@ export class Game {
       Log.info('Joining voice channel.');
     } catch (error) {
       this._hasVoice = false;
-      Log.info(error.message);
+      Log.info((error as Error).message);
     }
   }
 
@@ -155,7 +155,7 @@ Please check your privacy settings.`
       await playAllTurns(this);
     } catch (error) {
       Log.error(error);
-      this.sendChannelMessage(error.message);
+      this.sendChannelMessage((error as Error).message);
       this.stopGame();
       return;
     }

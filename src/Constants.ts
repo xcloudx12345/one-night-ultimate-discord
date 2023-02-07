@@ -16,16 +16,16 @@ export const ROUND_TIME_MILLISECONDS = ROUND_TIME_MINUTES * 60000;
 export const NIGHT_ALMOST_OVER_REMINDER = 30000;
 export const EMPTY_VOICE_CHECK_TIME = 10000;
 export const MAX_ROLES_COUNT: { [key in keyof typeof RoleName]: number } = {
-  doppelganger: 1,
-  werewolf: 2,
-  minion: 2,
-  mason: 2,
-  seer: 1,
-  robber: 1,
-  troublemaker: 1,
-  drunk: 1,
-  insomniac: 1,
-  villager: 3,
-  hunter: 1,
-  tanner: 1,
+  Kẻ_mạo_danh: 1,
+  Ma_sói: 2,
+  Kẻ_phản_bội: 2,
+  Thợ_hồ: 2,
+  Tiên_tri: 1,
+  Đạo_tặc: 1,
+  Kẻ_phá_hoại: 1,
+  Bợm_nhậu: 1,
+  Cú_đêm: 1,
+  Dân_làng: 3,
+  Thợ_săn: 1,
+  Kẻ_chán_đời: 1,
 };
